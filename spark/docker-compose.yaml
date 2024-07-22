@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+
+#####################
+#       SPARK       #
+#####################
+  spark-master:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: "spark-master"
+    environment:
+      - SPARK_MODE=master
+      - SPARK_LOCAL_IP=spark-master
+    ports:
+      - '7077:7077'
+      - '8080:8080'  # Spark Master UI port
+    volumes:
+      - ./src:/src
+      - ./spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+    networks:
+      - zingstreamp3
+
+  spark-worker:
+    image: docker.io/bitnami/spark:3.5.0
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=2G
+      - SPARK_EXECUTOR_MEMORY=2G
+      - SPARK_WORKER_CORES=2
+    # ports:
+    #   - '8081:8081'  # Spark Worker UI port
+    deploy: 
+      replicas: 3
+    networks:
+      - zingstreamp3
+
+
+networks:
+  zingstreamp3:
+    driver: bridge
+    name: zingstreamp3

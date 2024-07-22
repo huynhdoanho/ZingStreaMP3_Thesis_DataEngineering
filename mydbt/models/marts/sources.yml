@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: external
+    database: dev  
+    schema: spectrum_schema  
+    tables:
+      - name: listen_events
+      - name: auth_events
+      - name: page_view_events
+
+  - name: staging
+    schema: staging  
+    tables:
+      - name: songs
+      - name: state_codes

@@ -1,0 +1,13 @@
+logs
+airflow/logs
+data
+mydbt/dbt_packages
+mydbt/logs
+postgres_zingstreamp3
+spark/src/__pycache__
+.env
+airflow.postgres_zingstreamp3
+huynhdoanho_accessKeys.csv
+spark_streaming.ppk
+eventsim-kafka.pem
+zingstreamp3 aws document.docx

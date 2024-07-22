@@ -1,0 +1,9 @@
+apache-airflow
+apache-airflow-providers-postgres
+apache-airflow-providers-amazon
+sqlalchemy
+psycopg2-binary
+dbt-core
+dbt-redshift==1.4
+boto3
+#airflow.hooks.S3_hook
