@@ -1,0 +1,44 @@
+refs: 
+https://akshay03.medium.com/how-to-install-apache-airflow-with-docker-container-on-ec2-machine-52cd575c361e
+
+ec2 type: m5a.large
+Ubuntu
+
+**** nhớ sudo chmod 777 * ở /home/ubuntu ****
+
+# install
+sudo apt update
+sudo apt install docker.io
+sudo apt install docker-compose
+or
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m) -o /usr/bin/docker-compose && sudo chmod 755 /usr/bin/docker-compose && docker-compose --version
+
+# start docker
+sudo systemctl start docker 
+
+# add docker to group
+sudo groupadd docker
+sudo usermod -aG docker $ubuntu
+--- cần out ra, connect lại ---
+
+# push files từ local lên EC2
+scp -i zingstreamp3.pem -r ./airflow ubuntu@18.206.48.69:/home/ubuntu/
+scp -i zingstreamp3.pem -r ./mydbt ubuntu@18.206.48.69:/home/ubuntu
+
+#
+sudo chmod 777 * ở /home/ubuntu
+
+# run
+cd airflow
+docker-compose up --build -d
+
+
+# exec vào airflow với user là root
+sudo docker exec -it -u 0 airflow_webserver /bin/bash
+
+
+# 
+create connection to redshift
+
+
+

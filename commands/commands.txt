@@ -1,0 +1,20 @@
+-- eventsim
+
+cd eventsim
+
+docker build -t events:1.0 .
+
+docker run -itd --network host --name million_events --memory="2g" --memory-swap="2g" --oom-kill-disable events:1.0 -c "examples/example-config.json" --start-time "2024-05-14T00:00:00" --end-time "2024-12-15T23:00:00" --nusers 1000 --growth-rate 10 --userid 1 --kafkaBrokerList localhost:9092 --randomseed 1 --continuous
+
+sudo docker run -itd --network host --name million_events --memory="4g" --memory-swap="4g" --oom-kill-disable events:1.0 -c "examples/example-config.json" --start-time "`date -d "-1 days" +"%Y-%m-%dT%H:%M:%S"`" --end-time "`date -d "+1 days" +"%Y-%m-%dT%H:%M:%S"`" --nusers 100000  --growth-rate 10 --userid 1 --kafkaBrokerList localhost:9092 --randomseed 1 --continuous
+
+-- Spark
+docker exec -it spark-master /bin/bash
+
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0 /src/streaming.py
+
+
+-- dbt
+docker exec -it airflow_webserver /bin/bash
+
+dbt run --profiles-dir . --target prod

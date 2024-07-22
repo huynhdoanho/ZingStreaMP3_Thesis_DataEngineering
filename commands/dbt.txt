@@ -1,0 +1,4 @@
+songs, state_codes:
+
+dbt seed --profiles-dir .
+
