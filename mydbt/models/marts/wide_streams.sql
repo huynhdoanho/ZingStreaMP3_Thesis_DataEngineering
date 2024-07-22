@@ -6,7 +6,7 @@
         "granularity": "day"
       }
   ) }}
-  
+
 SELECT *
 FROM {{ this }}
 
