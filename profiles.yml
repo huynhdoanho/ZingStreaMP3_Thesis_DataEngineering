@@ -1,0 +1,25 @@
+mydbt:
+  outputs:
+    dev:
+      type: redshift
+      host: ""
+      user: ""
+      password: ""
+      port: 5439
+      dbname: "dev"
+      schema: "marts"
+      threads: 4
+      region: "us-east-1"
+
+    staging:
+      type: redshift
+      host: ""
+      user: ""
+      password: ""
+      port: 5439
+      dbname: "dev"
+      schema: "staging"
+      threads: 4
+      region: "us-east-1"
+
+  target: dev
